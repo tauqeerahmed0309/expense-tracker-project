@@ -6,22 +6,27 @@
 </head>
 <body>
 
-<h2>Expense Tracker</h2>
+<div class="container">
+    <h2>💰 Expense Tracker</h2>
 
-<input type="text" id="title" placeholder="Expense Name">
-<input type="number" id="amount" placeholder="Amount">
+    <input type="text" id="title" placeholder="Expense Name">
+    <input type="number" id="amount" placeholder="Amount">
 
-<button onclick="addExpense()">Add Expense</button>
+    <div class="buttons">
+        <button onclick="addExpense()">Add Expense</button>
+        <button class="refresh" onclick="loadExpenses()">Refresh</button>
+    </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Amount</th>
-        </tr>
-    </thead>
-    <tbody id="list"></tbody>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Amount (₹)</th>
+            </tr>
+        </thead>
+        <tbody id="list"></tbody>
+    </table>
+</div>
 
 <script src="script.js"></script>
 </body>
