@@ -45,7 +45,7 @@ function loadExpenses() {
         })
         .catch(() => {
             const list = document.getElementById("list");
-            list.innerHTML = `<tr><td colspan="2">Backend not connected</td></tr>`;
+            list.innerHTML = `<tr><td colspan="2"></td></tr>`;
         });
 }
 
