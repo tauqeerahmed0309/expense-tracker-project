@@ -1,31 +1,53 @@
-function addExpense() {
-    const title = document.getElementById("title").value;
-    const amount = document.getElementById("amount").value;
+const API_URL = "http://localhost:3000";
 
-    fetch("http://localhost:3000/add-expense", {
+function addExpense() {
+    const title = document.getElementById("title").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+
+    if (title === "" || amount === "") {
+        alert("Please enter both title and amount");
+        return;
+    }
+
+    fetch(`${API_URL}/add-expense`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, amount })
     })
-    .then(() => loadExpenses());
+    .then(() => {
+        document.getElementById("title").value = "";
+        document.getElementById("amount").value = "";
+        loadExpenses();
+    })
+    .catch(() => alert("Backend not connected"));
 }
 
 function loadExpenses() {
-    fetch("http://localhost:3000/expenses")
-    .then(res => res.json())
-    .then(data => {
-        const list = document.getElementById("list");
-        list.innerHTML = "";
+    fetch(`${API_URL}/expenses`)
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById("list");
+            list.innerHTML = "";
 
-        data.forEach(e => {
-            list.innerHTML += `
-                <tr>
-                    <td>${e.title}</td>
-                    <td>${e.amount}</td>
-                </tr>
-            `;
+            if (data.length === 0) {
+                list.innerHTML = `<tr><td colspan="2">No expenses found</td></tr>`;
+                return;
+            }
+
+            data.forEach(e => {
+                list.innerHTML += `
+                    <tr>
+                        <td>${e.title}</td>
+                        <td>₹${e.amount}</td>
+                    </tr>
+                `;
+            });
+        })
+        .catch(() => {
+            const list = document.getElementById("list");
+            list.innerHTML = `<tr><td colspan="2">Backend not connected</td></tr>`;
         });
-    });
 }
 
+// Auto-load expenses
 loadExpenses();
