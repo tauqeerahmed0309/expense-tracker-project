@@ -7,23 +7,27 @@ app.use(express.json());
 
 let expenses = [];
 
-// Get all expenses
+/* ✅ ADD THIS HERE */
+app.get("/", (req, res) => {
+  res.send("Backend is working ✅");
+});
+
+/* existing routes */
 app.get("/expenses", (req, res) => {
   res.json(expenses);
 });
 
-// Add expense
-app.post("/add-expense", (req, res) => {
+app.post("/expenses", (req, res) => {
   expenses.push(req.body);
   res.json({ message: "Expense added" });
 });
 
-// Clear all expenses (Refresh button)
 app.delete("/clear-expenses", (req, res) => {
   expenses = [];
   res.json({ message: "All expenses cleared" });
 });
 
+/* ✅ PORT FIX (CRITICAL) */
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server running on port", PORT);
