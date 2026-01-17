@@ -63,3 +63,4 @@ function refreshExpenses() {
   })
   .catch(err => console.error(err));
 }
+
