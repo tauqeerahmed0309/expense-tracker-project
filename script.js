@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "https://expense-tracker-project-1-re45.onrender.com";
 
 function addExpense() {
     const title = document.getElementById("title").value.trim();
