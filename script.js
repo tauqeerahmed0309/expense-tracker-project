@@ -24,11 +24,13 @@ function addExpense() {
     .then(() => {
       document.getElementById("title").value = "";
       document.getElementById("amount").value = "";
+      setStatus("Expense added ✔");
       loadExpenses();
     })
-    .catch(() => setStatus("Backend sleeping, wait 30s", "red"));
+    .catch(() => setStatus("Backend sleeping, try again", "red"));
 }
 
+// Load expenses
 function loadExpenses() {
   fetch(`${API_URL}/expenses`)
     .then(res => res.json())
@@ -39,22 +41,17 @@ function loadExpenses() {
       let total = 0;
 
       if (data.length === 0) {
-        list.innerHTML = `<tr><td colspan="3">No expenses</td></tr>`;
+        list.innerHTML = `<tr><td colspan="2">No expenses</td></tr>`;
         totalEl.innerText = 0;
         return;
       }
 
-      data.forEach((e, index) => {
+      data.forEach(e => {
         total += Number(e.amount);
         list.innerHTML += `
           <tr>
             <td>${e.title}</td>
             <td>₹${e.amount}</td>
-            <td>
-              <button class="delete-btn" onclick="deleteExpense(${index})">
-                Delete
-              </button>
-            </td>
           </tr>
         `;
       });
@@ -63,16 +60,17 @@ function loadExpenses() {
     });
 }
 
-function deleteExpense(index) {
-  fetch(`${API_URL}/delete-expense/${index}`, {
+// Refresh button = clear all expenses
+function refreshExpenses() {
+  fetch(`${API_URL}/clear-expenses`, {
     method: "DELETE"
   })
     .then(() => {
-      setStatus("Deleted ✔");
+      setStatus("All expenses cleared ✔");
       loadExpenses();
     })
-    .catch(() => setStatus("Delete failed", "red"));
+    .catch(() => setStatus("Refresh failed", "red"));
 }
 
-// Refresh button works because it calls this
+// Load initially
 loadExpenses();
