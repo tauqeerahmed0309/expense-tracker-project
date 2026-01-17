@@ -36,41 +36,38 @@ function loadExpenses() {
     .then(res => res.json())
     .then(data => {
       const list = document.getElementById("list");
-      const totalEl = document.getElementById("total");
+      const total = document.getElementById("total");
+
       list.innerHTML = "";
-      let total = 0;
+      let sum = 0;
 
-      if (data.length === 0) {
-        list.innerHTML = `<tr><td colspan="2">No expenses</td></tr>`;
-        totalEl.innerText = 0;
-        return;
-      }
-
-      data.forEach(e => {
-        total += Number(e.amount);
+      data.forEach(exp => {
+        sum += Number(exp.amount);
         list.innerHTML += `
           <tr>
-            <td>${e.title}</td>
-            <td>₹${e.amount}</td>
+            <td>${exp.title}</td>
+            <td>₹${exp.amount}</td>
           </tr>
         `;
       });
 
-      totalEl.innerText = total;
+      total.innerText = "₹" + sum;
     });
 }
+
 
 // Refresh button = clear all expenses
 function refreshExpenses() {
   fetch(`${API_URL}/clear-expenses`, {
     method: "DELETE"
   })
-    .then(() => {
-      setStatus("All expenses cleared ✔");
-      loadExpenses();
-    })
-    .catch(() => setStatus("Refresh failed", "red"));
+  .then(res => res.json())
+  .then(() => {
+    loadExpenses();
+  })
+  .catch(err => console.error(err));
 }
+
 
 // Load initially
 loadExpenses();
