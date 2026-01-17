@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Expense Tracker</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-<div class="container">
-    <h2> Expense Tracker</h2>
+  <div class="card">
+    <h1>💰 Expense Tracker</h1>
 
     <div class="inputs">
-        <input type="text" id="title" placeholder="Expense Name">
-        <input type="number" id="amount" placeholder="Amount">
+      <input type="text" id="title" placeholder="Expense title">
+      <input type="number" id="amount" placeholder="Amount">
     </div>
 
     <div class="buttons">
-        <button id="addBtn" onclick="addExpense()">Add</button>
-        <button onclick="refreshExpenses()">Refresh</button>
+      <button onclick="addExpense()">Add</button>
+      <button class="refresh" onclick="refreshExpenses()">Refresh</button>
     </div>
-
-    <p id="status" class="status"></p>
 
     <h3>Total: ₹<span id="total">0</span></h3>
 
     <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody id="list"></tbody>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody id="list"></tbody>
     </table>
-</div>
+  </div>
 
-<script src="script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
