@@ -1,4 +1,4 @@
-const API_URL = "https://expense-tracker-project-1-re45.onrender.com";
+const API_URL = "https://expense-tracker-project-qbdz.onrender.com";
 
 /* Load expenses on page load */
 loadExpenses();
