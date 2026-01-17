@@ -1,18 +1,14 @@
 const API_URL = "https://expense-tracker-project-1-re45.onrender.com";
 
-function setStatus(msg, color = "green") {
-  const status = document.getElementById("status");
-  status.style.color = color;
-  status.innerText = msg;
-  setTimeout(() => (status.innerText = ""), 2000);
-}
+/* Load expenses on page load */
+loadExpenses();
 
 function addExpense() {
   const title = document.getElementById("title").value;
   const amount = document.getElementById("amount").value;
 
   if (title === "" || amount === "") {
-    alert("Please enter title and amount");
+    alert("Please enter both fields");
     return;
   }
 
@@ -32,8 +28,6 @@ function addExpense() {
   .catch(err => console.error(err));
 }
 
-
-// Load expenses
 function loadExpenses() {
   fetch(`${API_URL}/expenses`)
     .then(res => res.json())
@@ -54,12 +48,11 @@ function loadExpenses() {
         `;
       });
 
-      total.innerText = "₹" + sum;
-    });
+      total.innerText = sum;
+    })
+    .catch(err => console.error(err));
 }
 
-
-// Refresh button = clear all expenses
 function refreshExpenses() {
   fetch(`${API_URL}/clear-expenses`, {
     method: "DELETE"
@@ -71,6 +64,3 @@ function refreshExpenses() {
   .catch(err => console.error(err));
 }
 
-
-// Load initially
-loadExpenses();
