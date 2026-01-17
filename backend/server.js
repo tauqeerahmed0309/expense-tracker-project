@@ -17,7 +17,7 @@ app.get("/expenses", (req, res) => {
   res.json(expenses);
 });
 
-app.post("/expenses", (req, res) => {
+app.post("/add-expenses", (req, res) => {
   expenses.push(req.body);
   res.json({ message: "Expense added" });
 });
