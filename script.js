@@ -11,24 +11,27 @@ function addExpense() {
   const title = document.getElementById("title").value;
   const amount = document.getElementById("amount").value;
 
-  if (!title || !amount) {
-    setStatus("Fill all fields", "red");
+  if (title === "" || amount === "") {
+    alert("Please enter title and amount");
     return;
   }
 
   fetch(`${API_URL}/add-expense`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({ title, amount })
   })
-    .then(() => {
-      document.getElementById("title").value = "";
-      document.getElementById("amount").value = "";
-      setStatus("Expense added ✔");
-      loadExpenses();
-    })
-    .catch(() => setStatus("Backend sleeping, try again", "red"));
+  .then(res => res.json())
+  .then(() => {
+    document.getElementById("title").value = "";
+    document.getElementById("amount").value = "";
+    loadExpenses();
+  })
+  .catch(err => console.error(err));
 }
+
 
 // Load expenses
 function loadExpenses() {
