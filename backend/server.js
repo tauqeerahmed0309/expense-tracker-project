@@ -18,11 +18,10 @@ app.post("/add-expense", (req, res) => {
   res.json({ message: "Expense added" });
 });
 
-// Delete expense by index
-app.delete("/delete-expense/:index", (req, res) => {
-  const index = req.params.index;
-  expenses.splice(index, 1);
-  res.json({ message: "Expense deleted" });
+// Clear all expenses (Refresh button)
+app.delete("/clear-expenses", (req, res) => {
+  expenses = [];
+  res.json({ message: "All expenses cleared" });
 });
 
 const PORT = process.env.PORT || 3000;
